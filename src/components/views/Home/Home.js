@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import TriviaText, { Title } from '../../shared/TriviaText';
 import TriviaButton from '../../shared/TriviaButton';
+import TriviaLayout from '../../shared/TriviaLayout';
 import styles from './styles';
 
 type Props = {
@@ -9,18 +10,17 @@ type Props = {
 }
 
 const HomeContainer = ({ onPush }: Props) => (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Title>{'Welcome to the\nTrivia Challenge'}</Title>
-      </View>
-      <View style={styles.content}>
-        <TriviaText>{'You will be presented with 10 true or false questions'}</TriviaText>
-        <TriviaText>{'Can you score 100%?'}</TriviaText>
-      </View>
-      <View style={styles.footer}>
-        <TriviaButton text="BEGIN" onPress={onPush}/>
-      </View>
-    </View>
+  <TriviaLayout header={<Title>{'Welcome to the\nTrivia Challenge'}</Title>}
+                content={[
+                  <TriviaText key={'scoreQuestion'}>{'You will be presented with 10 true or false questions'}</TriviaText>,
+                  <TriviaText key={'question'}>{'Can you score 100%?'}</TriviaText>,
+                ]}
+                footer={
+                  <View style={styles.row}>
+                    <TriviaButton text="BEGIN" onPress={onPush}/>
+                  </View>
+                }
+  />
 );
 
 

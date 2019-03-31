@@ -1,10 +1,9 @@
 import { StyleSheet } from 'react-native';
 
 const styles = {
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+  container: {
+    backgroundColor: '#E0E0E0',
+    borderColor: 'black',
   },
 };
-
 export default StyleSheet.create(styles);

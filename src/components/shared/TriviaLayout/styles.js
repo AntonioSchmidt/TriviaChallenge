@@ -16,7 +16,6 @@ const styles = {
   },
   footer: {
     justifyContent: 'flex-end',
-    flex: 1,
   },
 };
 

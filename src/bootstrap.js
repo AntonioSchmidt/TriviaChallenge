@@ -2,58 +2,42 @@
 import 'whatwg-fetch';
 import React from 'react';
 import { Provider } from 'react-redux';
-import { applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import { createInjectStore, injectReducer as injector } from 'redux-injector';
-import { createStackNavigator, createAppContainer, SafeAreaView } from 'react-navigation';
-import HomeComponent, { configure as configureHome, route as homeRoute } from './components/views/Home';
-import QuizzComponent, { configure as configureQuizz, route as quizzRoute } from './components/views/Quizz';
-// import ResultComponent, { configure as configureResult, route as resultRoute } from './components/views/Result';
-
-const endpoint = ' https://opentdb.com/api.php';
-const reduxMiddleware = applyMiddleware(thunk.withExtraArgument({
-  fetch: (url, options = {}, ...args) => {
-    options = {
-      method: 'GET',
-      ...options,
-      headers: {
-        'Content-Type': 'application/json',
-        ...options.headers,
-      },
-    };
-    url = `${endpoint}${url}`;
-    return fetch(url, options, ...args);
-  },
-}));
-
-const store = createInjectStore({ global: (state = {}) => state }, {}, reduxMiddleware);
-
-configureHome({ injector });
-// configureQuizz({ injector });
-// configureResult({ injector });
+import {
+  createStackNavigator, createAppContainer, SafeAreaView, StackActions, NavigationActions,
+} from 'react-navigation';
+import store from './configure.store';
+import HomeComponent, { route as homeRoute } from './components/views/Home';
+import {
+  Questions, questionRoute, Results, resultRoute,
+} from './components/views/Quizz';
 
 type Props = {
   navigation: Object
 }
-const createNavigationController = (onPushRoute, Component) => function NavigationController({ navigation, ...props }: Props) {
+
+const resetNavigation = routeName => StackActions.reset({
+  index: 0,
+  actions: [
+    NavigationActions.navigate({ routeName }),
+  ],
+});
+const createNavigationController = (onPushRoute, Component, options = {}) => function NavigationController({ navigation, ...props }: Props) {
+  const navigate = options.resetCache ? () => navigation.dispatch(resetNavigation(onPushRoute)) : navigation.navigate;
   return (
-    <Component {...props} onPush={params => navigation.navigate(onPushRoute, { ...params })}/>
+    <Component {...props} onPush={params => navigate(onPushRoute, { ...params })}/>
   );
 };
 
 const Navigation = createStackNavigator({
   [homeRoute]: {
-    screen: createNavigationController(quizzRoute, HomeComponent),
+    screen: createNavigationController(questionRoute, HomeComponent),
   },
-  [quizzRoute]: {
-    screen: createNavigationController('', QuizzComponent),
+  [questionRoute]: {
+    screen: createNavigationController(resultRoute, Questions),
   },
-  // Results: {
-  //   screen: createNavigationController(homeRoute, ResultComponent),
-  //   navigationOptions: () => ({
-  //     header: null,
-  //   }),
-  // },
+  [resultRoute]: {
+    screen: createNavigationController(homeRoute, Results, { resetCache: true }),
+  },
 },
 {
   initialRouteName: homeRoute,

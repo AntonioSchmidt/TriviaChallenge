@@ -1,15 +1,16 @@
 import React from 'react';
 
 import { Button } from 'react-native-elements';
+import styles from './styles';
 
 
 type Props = {
   text: string,
-  onPress: () => void
+  onPress: () => void,
 }
 
 const TriviaButton = ({ onPress, text }: Props) => (
-  <Button onPress={onPress} title={text}/>
+  <Button raised onPress={onPress} title={text} containerStyle={styles.container}/>
 );
 
 export default TriviaButton;
