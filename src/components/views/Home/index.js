@@ -9,11 +9,9 @@ type Props = {
   onPush: (params: Object) => void
 }
 
-const HomeContainer = ({ onPush }: Props) => {
-  return (
+const HomeContainer = ({ onPush }: Props) => (
     <Home onPush={onPush} />
-  );
-};
+);
 
 
 export default HomeContainer;

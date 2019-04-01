@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { AllHtmlEntities } from 'html-entities';
 import TriviaText, { Title } from '../../../shared/TriviaText';
 import TriviaButton from '../../../shared/TriviaButton';
