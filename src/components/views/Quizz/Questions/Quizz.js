@@ -27,8 +27,8 @@ const Quizz = ({ doAnswer, question, answeredCount }: Props) => (
                   }
                 footer={
                   <View style={styles.row}>
-                    <TriviaButton text="False" onPress={() => doAnswer('False', question)}/>
-                    <TriviaButton text="True" onPress={() => doAnswer('True', question)}/>
+                    <TriviaButton testID="btnFalseAnswer" text="False" onPress={() => doAnswer('False', question)}/>
+                    <TriviaButton testID="btnTrueAnswer" text="True" onPress={() => doAnswer('True', question)}/>
                   </View>
                   }/>
 );

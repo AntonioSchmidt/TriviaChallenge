@@ -9,7 +9,6 @@ import styles from '../styles';
 type Props = {
   onPush: (params: Object) => void,
   score: number,
-  answeredCount: number,
   answeredQuestions: Array<Object>
 }
 

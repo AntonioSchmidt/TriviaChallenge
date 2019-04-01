@@ -17,7 +17,7 @@ const HomeContainer = ({ onPush }: Props) => (
                 ]}
                 footer={
                   <View style={styles.row}>
-                    <TriviaButton text="BEGIN" onPress={onPush}/>
+                    <TriviaButton testID="beginButton" text="BEGIN" onPress={onPush}/>
                   </View>
                 }
   />
